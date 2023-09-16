@@ -1,0 +1,83 @@
+<div class="card">
+  <div class="card-body">
+
+    <div class="row">
+      <div class="col-md-8">
+        <h5 class="card-title text-body-secondary">Lista de Produtos</h5>
+      </div>
+      <div class="col-md-4">
+        <button type="button" class="btn btn-primary btn-sm float-end">
+          <i class="fa fa-plus"></i> Cadastrar
+        </button>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+        <table mat-table [dataSource]="products">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th class="fw-bolder text-body-secondary" mat-header-cell *matHeaderCellDef> Nome </th>
+            <td class="text-body-secondary" mat-cell *matCellDef="let row"> {{row.name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <th class="fw-bolder text-body-secondary" mat-header-cell *matHeaderCellDef> Descrição </th>
+            <td class="text-body-secondary" mat-cell *matCellDef="let row"> {{row.description}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="category">
+            <th class="fw-bolder text-body-secondary" mat-header-cell *matHeaderCellDef> Categoria </th>
+            <td class="text-body-secondary" mat-cell *matCellDef="let row"> {{row.category}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="active">
+            <th class="fw-bolder text-body-secondary" mat-header-cell *matHeaderCellDef> Ativo </th>
+            <td class="text-body-secondary" mat-cell *matCellDef="let row">
+              <i class="fa fa-check text-success" *ngIf="row.active"></i>
+              <i class="fa fa-close text-danger" *ngIf="!row.active"></i>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="perishable">
+            <th class="fw-bolder text-body-secondary" mat-header-cell *matHeaderCellDef> Perecível </th>
+            <td class="text-body-secondary" align="center" mat-cell *matCellDef="let row">
+              <i class="fa fa-check text-success" *ngIf="row.perishable"></i>
+              <i class="fa fa-close text-danger" *ngIf="!row.perishable"></i>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th class="fw-bolder text-body-secondary" mat-header-cell *matHeaderCellDef width="9%"></th>
+            <td class="text-body-secondary" align="center" mat-cell *matCellDef="let row">
+              <button type="button" class="btn btn-primary btn-sm">
+                <i class="fa fa-edit"></i>
+              </button>
+              <button type="button" class="btn btn-danger btn-sm float-end">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator #paginator
+                       [pageIndex]="pageIndex"
+                       [pageSize]="pageSize"
+                       [length]="totalRows"
+                       [pageSizeOptions]="pageSizeOptions"
+                       showFirstLastButtons>
+        </mat-paginator>
+      </div>
+      
+    </div>
+  </div>
+</div>
