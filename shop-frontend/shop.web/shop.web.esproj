@@ -11,8 +11,23 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\shop.web</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="src\app\pages\product-category\interfaces\" />
+    <Folder Include="src\app\pages\product-category\services\" />
+    <Folder Include="src\app\pages\product\components\product-create\" />
     <Folder Include="src\app\pages\product\components\product-list\" />
     <Folder Include="src\app\pages\product\services\" />
     <Folder Include="src\app\shared\interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptConfiguration Remove="src\app\pages\product\components\shared\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\pages\product\components\shared\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\pages\product\components\shared\form\product.form.component.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\pages\product\components\shared\form\product.form.component.html" />
   </ItemGroup>
 </Project>

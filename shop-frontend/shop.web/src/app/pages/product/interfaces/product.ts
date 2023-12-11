@@ -1,8 +1,10 @@
+import { ProductCategory } from "../../product-category/interfaces/productCategory";
+
 export interface Product {
-  id: number;
+  id?: number;
   name: string;
   description: string;
-  category: string;
-  active: boolean;
-  perishable: boolean;
+  productCategory: ProductCategory;
+  isActive: boolean;
+  isPerishable: boolean;
 }

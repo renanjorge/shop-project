@@ -4,36 +4,38 @@ import { Observable } from "rxjs";
 
 import { ProductPagedList } from "../interfaces/product.pagedList";
 import { Product } from "../interfaces/product";
+import { AddProduct } from "../interfaces/add.product";
+import { EditProduct } from "../interfaces/edit.product";
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
 
-  private api: string = "http://localhost:3000";
+  private API: string = "http://localhost:5000/api/products";
 
   constructor(private http: HttpClient) { }
 
-  getProductsPagedList(pageIndex: number, pageSize: number): Observable<ProductPagedList> {
+  getAll(pageIndex: number, pageSize: number): Observable<ProductPagedList> {
     let params = {
-      pageIndex,
+      pageNumber: pageIndex,
       pageSize
     };
 
-    return this.http.get<ProductPagedList>(`${this.api}/products/pagedList`, { params });
+    return this.http.get<ProductPagedList>(`${this.API}`, { params });
   }
 
-  getProduct(id: number): Observable<Product> {
-    return this.http.get<Product>(`${this.api}/products/${id}`);
+  get(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.API}/${id}`);
   }
 
-  postProduct(product: Product) {
-    this.http.post(`${this.api}/products`, product);
+  post(addProduct: AddProduct): Observable<any> {
+    return this.http.post<AddProduct>(`${this.API}`, addProduct);
   }
 
-  putProduct(product: Product) {
-    this.http.put(`${this.api}/products`, product);
+  put(editProduct: EditProduct, id: number): Observable<any> {
+    return this.http.put(`${this.API}/${id}`, editProduct);
   }
 
-  deleteProduct(id: number) {
-    this.http.delete(`${this.api}/products/${id}`);
+  delete(id: number): Observable<any> {
+    return this.http.delete(`${this.API}/${id}`);
   }
 }
