@@ -1,0 +1,58 @@
+<div class="container">
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+  <table mat-table [dataSource]="products">
+    <ng-container matColumnDef="name">
+      <th class="fw-bolder text-body-secondary col-md-6" mat-header-cell *matHeaderCellDef> Nome </th>
+      <td class="text-body-secondary" mat-cell *matCellDef="let row"> {{row.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th class="fw-bolder text-body-secondary col-md-2 text-center" mat-header-cell *matHeaderCellDef> Categoria </th>
+      <td class="text-body-secondary text-center" mat-cell *matCellDef="let row"> {{row.productCategory.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="perishable">
+      <th class="fw-bolder text-body-secondary col-md-1 text-center" mat-header-cell *matHeaderCellDef> Perecível </th>
+      <td class="text-body-secondary text-center" mat-cell *matCellDef="let row">
+        <span class="badge rounded-pill bg-success opacity-75" *ngIf="row.isPerishable">Sim</span>
+        <span class="badge rounded-pill bg-danger opacity-75" *ngIf="!row.isPerishable">Não</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="active">
+      <th class="fw-bolder text-body-secondary col-md-1 text-center" mat-header-cell *matHeaderCellDef> Ativo </th>
+      <td class="text-body-secondary text-center" mat-cell *matCellDef="let row">
+        <span class="badge rounded-pill bg-success opacity-75" *ngIf="row.isActive">Sim</span>
+        <span class="badge rounded-pill bg-danger opacity-75" *ngIf="!row.isActive">Não</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th class="fw-bolder text-body-secondary col-md-1" mat-header-cell *matHeaderCellDef></th>
+      <td class="text-body-secondary" mat-cell *matCellDef="let row">
+        <a matTooltip="Editar"
+           routerLink="edit/{{row.id}}">
+          <i class="fa fa-pencil-square-o fs-5 text-primary"></i>
+        </a>
+        <a class="ps-4"
+           matTooltip="Excluir"
+           (click)="delete(row)">
+          <i class="fa fa-trash-o fs-5 text-danger"></i>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+                  [pageIndex]="pageIndex"
+                  [pageSize]="pageSize"
+                  [length]="totalRows"
+                  [pageSizeOptions]="pageSizeOptions"
+                  showFirstLastButtons>
+  </mat-paginator>
+
+</div>

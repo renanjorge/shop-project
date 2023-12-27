@@ -1,0 +1,23 @@
+<mat-card>
+
+  <div class="row">
+    <div class="col-md-6">
+      <mat-card-header>
+        <mat-card-title class="fw-bolder text-secondary">Produtos</mat-card-title>
+        <mat-card-subtitle>Lista de produtos cadastrados</mat-card-subtitle>
+      </mat-card-header>
+    </div>
+    <div class="col-md-6">
+     <mat-card-actions class="d-grid d-md-flex justify-content-md-end m-2">
+       <button mat-raised-button class="" color="primary" routerLink="add">
+         <i class="fa fa-plus-circle"></i>&nbsp;
+         Cadastrar
+       </button>
+     </mat-card-actions>
+    </div>
+  </div>
+  <mat-card-content class="row">
+    <app-product-grid></app-product-grid>
+  </mat-card-content>
+
+</mat-card>

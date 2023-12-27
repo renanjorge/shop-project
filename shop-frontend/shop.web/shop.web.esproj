@@ -13,9 +13,13 @@
   <ItemGroup>
     <Folder Include="src\app\pages\product-category\interfaces\" />
     <Folder Include="src\app\pages\product-category\services\" />
-    <Folder Include="src\app\pages\product\components\product-create\" />
-    <Folder Include="src\app\pages\product\components\product-list\" />
+    <Folder Include="src\app\pages\product\components\product\" />
+    <Folder Include="src\app\pages\product\containers\product-input\" />
+    <Folder Include="src\app\pages\product\containers\product-grid\" />
+    <Folder Include="src\app\pages\product\containers\product-edit\" />
+    <Folder Include="src\app\pages\product\containers\product-add\" />
     <Folder Include="src\app\pages\product\services\" />
+    <Folder Include="src\app\shared\components\confirmation-dialog\" />
     <Folder Include="src\app\shared\interfaces\" />
   </ItemGroup>
   <ItemGroup>

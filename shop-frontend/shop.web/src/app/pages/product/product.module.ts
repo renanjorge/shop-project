@@ -3,33 +3,29 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from "@angular/router";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule } from "@angular/material/table";
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MaterialModule } from "../../shared/material.module";
 
 import { ProductRoutingModule } from "./product.routing.module";
-import { ProductListComponent } from "./components/product-list/product.list.component";
-import { ProductCreateComponent } from "./components/product-create/product.create.component";
-import { ProductEditComponent } from "./components/product-edit/product.edit.component";
-import { ProductDeleteComponent } from "./components/product-delete/product.delete.component";
+import { ProductComponent } from "./components/product/product.component";
+import { ProductGridComponent } from "./containers/product-grid/product-grid.component";
+import { ProductInputComponent } from "./containers/product-input/product-input.component";
+import { ProductAddComponent } from "./containers/product-add/product-add.component";
+import { ProductEditComponent } from "./containers/product-edit/product-edit.component";
 
 @NgModule({
   declarations: [
-    ProductListComponent,
-    ProductCreateComponent,
-    ProductEditComponent,
-    ProductDeleteComponent
+    ProductComponent,
+    ProductGridComponent,
+    ProductInputComponent,
+    ProductAddComponent,
+    ProductEditComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     HttpClientModule,
     RouterModule,
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
+    MaterialModule,
     ProductRoutingModule,
     ReactiveFormsModule
   ],

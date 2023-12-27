@@ -1,0 +1,14 @@
+<div class="m-4">
+  <div class="card-body">
+    <h5 class="card-title mb-3 text-danger" mat-dialog-title>
+      <i class="fa fa-trash-o"></i> Excluir
+    </h5>
+    <p mat-dialog-content class="card-text text-secondary">
+      {{ content }}
+    </p>
+    <div class="btn-group d-grid d-md-flex justify-content-md-end" mat-dialog-actions>
+      <button class="btn btn-light" (click)="onConfirm(false)">{{ cancelText }}</button>
+      <button class="btn btn-danger" (click)="onConfirm(true)" cdkFocusInitial>{{ confirmText }}</button>
+    </div>
+  </div>
+</div>

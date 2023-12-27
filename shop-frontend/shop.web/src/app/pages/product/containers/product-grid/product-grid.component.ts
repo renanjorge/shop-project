@@ -1,31 +1,43 @@
 import { AfterViewInit, Component, ViewChild } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
+import { MatDialog } from "@angular/material/dialog";
 
 import { Product } from "../../interfaces/product";
 import { ProductService } from "../../services/product.service";
 import { map, startWith, switchMap } from "rxjs";
+import { ConfirmationDialogComponent } from "../../../../shared/components/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product.list.component.html'
+  selector: 'app-product-grid',
+  templateUrl: './product-grid.component.html'
 })
-export class ProductListComponent implements AfterViewInit {
+export class ProductGridComponent implements AfterViewInit {
 
-  isLoading: boolean = true;
+  isLoading!: boolean;
 
-  pageIndex: number = 0;
-  pageSize: number = 5;
-  totalRows: number = 0;
-  pageSizeOptions: number[] = [5, 10, 50, 100];
+  pageIndex!: number;
+  pageSize!: number;
+  totalRows!: number;
+  pageSizeOptions!: number[];
 
-  displayedColumns: string[] = ['name', 'category', 'perishable', 'active', 'actions'];
+  displayedColumns!: string[];
   empData: Product[] = [];
   products = new MatTableDataSource<Product>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private dialog: MatDialog
+  ) {
+    this.isLoading = true;
+    this.pageIndex = 0;
+    this.pageSize = 5;
+    this.totalRows = 0;
+    this.pageSizeOptions = [5, 10, 50, 100];
+    this.displayedColumns = ['name', 'category', 'perishable', 'active', 'actions'];
+  }
 
   ngAfterViewInit() {
     this.products.paginator = this.paginator;
@@ -58,6 +70,20 @@ export class ProductListComponent implements AfterViewInit {
     return this.productService.getAll(pageIndex, pageSize);
   }
 
-  delete() { }
+  delete(row: Product) {
+    const data = {
+      content: `Confirma a exclusão do produto "${row.name}"?`
+    };
 
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '25%',
+      data
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.productService.delete(Number(row.id)).subscribe(() => { });
+      }
+    });
+  }
 }
