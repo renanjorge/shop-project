@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 import { ProductService } from "../../services/product.service";
-import { Product } from "../../interfaces/product";
+import { MessageService } from "../../../../shared/services/message.service";
 
 @Component({
   selector: 'app-product-add',
@@ -10,12 +11,19 @@ import { Product } from "../../interfaces/product";
 export class ProductAddComponent implements OnInit {
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private messageService: MessageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void { }
 
   add(productForm: any): void {
-    this.productService.post(productForm.value).subscribe((response: Product) => {});
+    this.productService.post(productForm.value).subscribe(
+      () => {
+        this.messageService.openAddSuccess();
+        this.router.navigate(['product']);
+      }
+    );
   }
 }

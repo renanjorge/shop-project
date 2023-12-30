@@ -3,3 +3,12 @@
 body {
   background-color: #cccccc6e !important;
 }
+
+a.btn-icon:hover {
+  cursor: pointer;
+}
+
+.mdc-snackbar.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background-color: #198754cf !important;
+  min-width: 100% !important;
+}

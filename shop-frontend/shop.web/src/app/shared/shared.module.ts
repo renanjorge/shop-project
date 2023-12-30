@@ -1,14 +1,15 @@
 import { NgModule } from "@angular/core";
-import { ConfirmationDialogComponent } from "./components/confirmation-dialog/confirmation-dialog.component";
 import { MaterialModule } from "./material.module";
-import { MatDialogModule } from "@angular/material/dialog";
+import { ConfirmationDialogComponent } from "./components/dialog/confirmation-dialog/confirmation-dialog.component";
+import { SuccessSnackBarComponent } from "./components/snackbar/success-snackbar/success-snackbar.component";
+import { MessageService } from "./services/message.service";
 
 @NgModule({
   declarations: [
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    SuccessSnackBarComponent
   ],
   imports: [
-    MatDialogModule,
     MaterialModule
   ]
 })

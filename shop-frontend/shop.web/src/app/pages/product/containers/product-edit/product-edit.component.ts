@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { ProductService } from "../../services/product.service";
-import { Product } from "../../interfaces/product";
+import { MessageService } from "../../../../shared/services/message.service";
 
 @Component({
   selector: 'app-product-edit',
@@ -14,7 +14,9 @@ export class ProductEditComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private messageService: MessageService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.id = 0;
   }
@@ -24,6 +26,11 @@ export class ProductEditComponent implements OnInit {
   }
 
   update(productForm: any): void {
-    this.productService.put(productForm.value, this.id).subscribe(() => {});
+    this.productService.put(productForm.value, this.id).subscribe(
+      () => {
+        this.messageService.openEditSuccess();
+        this.router.navigate(['product']);
+      }
+    );
   }
 }

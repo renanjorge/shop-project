@@ -19,8 +19,11 @@
     <Folder Include="src\app\pages\product\containers\product-edit\" />
     <Folder Include="src\app\pages\product\containers\product-add\" />
     <Folder Include="src\app\pages\product\services\" />
-    <Folder Include="src\app\shared\components\confirmation-dialog\" />
+    <Folder Include="src\app\shared\components\dialog\confirmation-dialog\" />
+    <Folder Include="src\app\shared\components\snackbar\success-snackbar\" />
     <Folder Include="src\app\shared\interfaces\" />
+    <Folder Include="src\app\shared\lang\" />
+    <Folder Include="src\app\shared\services\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptConfiguration Remove="src\app\pages\product\components\shared\**" />

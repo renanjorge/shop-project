@@ -1,12 +1,14 @@
 import { AfterViewInit, Component, ViewChild } from "@angular/core";
+import { Observable, map, startWith, switchMap } from "rxjs";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatDialog } from "@angular/material/dialog";
 
 import { Product } from "../../interfaces/product";
+import { ProductPagedList } from "../../interfaces/product.pagedList";
 import { ProductService } from "../../services/product.service";
-import { map, startWith, switchMap } from "rxjs";
-import { ConfirmationDialogComponent } from "../../../../shared/components/confirmation-dialog/confirmation-dialog.component";
+import { ConfirmationDialogComponent } from "../../../../shared/components/dialog/confirmation-dialog/confirmation-dialog.component";
+import { MessageService } from "../../../../shared/services/message.service";
 
 @Component({
   selector: 'app-product-grid',
@@ -29,6 +31,7 @@ export class ProductGridComponent implements AfterViewInit {
 
   constructor(
     private productService: ProductService,
+    private messageService: MessageService,
     private dialog: MatDialog
   ) {
     this.isLoading = true;
@@ -41,13 +44,16 @@ export class ProductGridComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.products.paginator = this.paginator;
+    this.loadGrid();
+  }
 
+  loadGrid(): void {
     this.paginator.page
       .pipe(
         startWith({}),
         switchMap(() => {
           this.isLoading = true;
-          return this.list(this.paginator.pageIndex + 1, this.paginator.pageSize);
+          return this.getList(this.paginator.pageIndex + 1, this.paginator.pageSize);
         }),
         map((response) => {
 
@@ -63,14 +69,13 @@ export class ProductGridComponent implements AfterViewInit {
           this.isLoading = false;
         }, 700);
       });
-
   }
 
-  list(pageIndex: number, pageSize: number) {
+  getList(pageIndex: number, pageSize: number) : Observable<ProductPagedList> {
     return this.productService.getAll(pageIndex, pageSize);
   }
 
-  delete(row: Product) {
+  delete(row: Product) : void {
     const data = {
       content: `Confirma a exclusão do produto "${row.name}"?`
     };
@@ -82,8 +87,15 @@ export class ProductGridComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.productService.delete(Number(row.id)).subscribe(() => { });
+        this.productService
+          .delete(Number(row.id))
+          .subscribe(() => {
+            this.messageService.openDeleteSuccess();
+            this.loadGrid();
+          });
       }
     });
   }
+
+  
 }

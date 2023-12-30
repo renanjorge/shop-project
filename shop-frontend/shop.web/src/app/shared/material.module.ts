@@ -12,9 +12,8 @@ import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ProductRoutingModule } from "../pages/product/product.routing.module";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { registerLocaleData } from "@angular/common";
 
 registerLocaleData(localePt);
@@ -34,9 +33,7 @@ registerLocaleData(localePt);
     MatOptionModule,
     MatRadioModule,
     MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ProductRoutingModule,
+    MatSnackBarModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }]
 })

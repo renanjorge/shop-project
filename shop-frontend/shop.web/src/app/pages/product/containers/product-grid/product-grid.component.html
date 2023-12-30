@@ -31,11 +31,12 @@
     <ng-container matColumnDef="actions">
       <th class="fw-bolder text-body-secondary col-md-1" mat-header-cell *matHeaderCellDef></th>
       <td class="text-body-secondary" mat-cell *matCellDef="let row">
-        <a matTooltip="Editar"
+        <a class="btn-icon"
+           matTooltip="Editar"
            routerLink="edit/{{row.id}}">
           <i class="fa fa-pencil-square-o fs-5 text-primary"></i>
         </a>
-        <a class="ps-4"
+        <a class="btn-icon ps-4"
            matTooltip="Excluir"
            (click)="delete(row)">
           <i class="fa fa-trash-o fs-5 text-danger"></i>
@@ -45,6 +46,13 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr *matNoDataRow>
+      <td class="py-2 fw-bolder text-muted bg-light text-center" [attr.colspan]="displayedColumns.length">
+        <span>Nenhum item encontrado</span>
+      </td>
+    </tr>
+
   </table>
 
   <mat-paginator #paginator
