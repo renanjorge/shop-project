@@ -87,12 +87,17 @@ export class ProductGridComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.productService
-          .delete(Number(row.id))
-          .subscribe(() => {
+
+        this.productService.delete(Number(row.id)).subscribe(
+          (success) => {
             this.messageService.openDeleteSuccess();
             this.loadGrid();
-          });
+          },
+          (error) => {
+            this.messageService.openError("Houve um problema para realizar a exclusão.");
+          }
+        );
+
       }
     });
   }

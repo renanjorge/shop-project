@@ -36,6 +36,6 @@ export class ProductService {
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${this.API}/${id}`);
+     return this.http.delete(`${this.API}/${id}`);
   }
 }

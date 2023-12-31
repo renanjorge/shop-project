@@ -8,7 +8,12 @@ a.btn-icon:hover {
   cursor: pointer;
 }
 
-.mdc-snackbar.mat-mdc-snack-bar-container .mdc-snackbar__surface {
-  background-color: #198754cf !important;
+.success-snackbar .mdc-snackbar__surface {
+  background-color: #198754b8 !important;
+  min-width: 100% !important;
+}
+
+.error-snackbar .mdc-snackbar__surface {
+  background-color: #bd1818b8 !important;
   min-width: 100% !important;
 }

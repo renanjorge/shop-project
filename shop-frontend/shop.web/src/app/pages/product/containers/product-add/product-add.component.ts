@@ -20,9 +20,12 @@ export class ProductAddComponent implements OnInit {
 
   add(productForm: any): void {
     this.productService.post(productForm.value).subscribe(
-      () => {
+      (success) => {
         this.messageService.openAddSuccess();
         this.router.navigate(['product']);
+      },
+      (error) => {
+        this.messageService.openError("Houve um problema para cadastrar o produto.");
       }
     );
   }

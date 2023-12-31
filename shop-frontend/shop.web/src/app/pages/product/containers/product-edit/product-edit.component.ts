@@ -27,9 +27,12 @@ export class ProductEditComponent implements OnInit {
 
   update(productForm: any): void {
     this.productService.put(productForm.value, this.id).subscribe(
-      () => {
+      (success) => {
         this.messageService.openEditSuccess();
         this.router.navigate(['product']);
+      },
+      (error) => {
+        this.messageService.openError("Houve um problema para atualizar o produto.");
       }
     );
   }
