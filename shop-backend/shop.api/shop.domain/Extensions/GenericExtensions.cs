@@ -1,4 +1,7 @@
-﻿namespace shop.domain.Extensions;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
+
+namespace shop.domain.Extensions;
 
 public static class GenericExtensions
 {
@@ -14,7 +17,8 @@ public static class GenericExtensions
         if (supplier.IsNull())
             return receiver;
 
-        foreach (var receiverProperty in receiver.GetType().GetProperties())
+        var receiverProperties = receiver.GetType().GetProperties();
+        foreach (var receiverProperty in receiverProperties)
         {
             var receiverPropertyValue = receiverProperty.GetValue(receiver);
 
@@ -24,7 +28,11 @@ public static class GenericExtensions
 
             if (supplierPropertyValue.IsNotNull() &&
                 !supplierPropertyValue.Equals(0) &&
-                !supplierPropertyValue.Equals(receiverPropertyValue))
+                !supplierPropertyValue.Equals(receiverPropertyValue)
+
+                ||
+
+                receiverProperty.GetCustomAttribute<NotMappedAttribute>().IsNotNull())
             {
                 receiverProperty.SetValue(receiver, supplierPropertyValue);
             }

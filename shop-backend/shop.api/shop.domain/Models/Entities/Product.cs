@@ -1,4 +1,6 @@
-﻿namespace shop.domain.Models.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace shop.domain.Models.Entities;
 
 public class Product
 {
@@ -10,5 +12,7 @@ public class Product
     public bool IsPerishable { get; set; }
 
     public int ProductCategoryId { get; set; }
+
+    [NotMapped]
     public virtual ProductCategory? ProductCategory { get; set; }
 }
