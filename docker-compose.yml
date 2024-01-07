@@ -1,0 +1,50 @@
+version: '3.4'
+
+networks:
+  shop.network:
+    name: shop.network
+    driver: bridge
+
+services:
+  shop.database:
+    container_name: shop.db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+        - 1433:1433
+    environment:
+        - ACCEPT_EULA=Y
+        - MSSQL_SA_PASSWORD=Password#123
+    networks:
+        - shop.network
+  shop.backend:
+    container_name: shop.api
+    image: renanjorge/shop.api:latest
+    build:
+      context: /shop-backend/shop.api
+      dockerfile: Dockerfile
+    environment:
+        - DB_HOST=shop.db
+        - DB_PORT=1433
+        - DB_NAME=shopdb
+        - DB_USER=sa
+        - DB_SA_PASSWORD=Password#123
+        - ASPNETCORE_URLS=http://+:8080
+        - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+        - 5000:8080
+    networks:
+        - shop.network
+    depends_on:
+        - shop.database
+  shop.frontend:
+    container_name: shop.web
+    image: renanjorge/shop.web:latest
+    build:
+      context: /shop-frontend/shop.web
+      dockerfile: Dockerfile
+    ports:
+        - 4200:80
+    networks:
+        - shop.network
+    depends_on:
+        - shop.backend
