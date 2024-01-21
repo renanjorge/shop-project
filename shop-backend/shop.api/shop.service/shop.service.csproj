@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\shop.domain\shop.domain.csproj" />
-    <ProjectReference Include="..\shop.infra.data\shop.infra.data.csproj" />
   </ItemGroup>
 
 </Project>

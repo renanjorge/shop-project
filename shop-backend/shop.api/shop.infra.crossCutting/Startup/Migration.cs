@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using shop.infra.data.Context;
 
-namespace shop.api.Extensions.Startup;
-
-public static class MigrationExtension
+namespace shop.infra.crossCutting.Startup;
+public static class Migration
 {
     public static IHost MigrateDatabase(this IHost host)
     {

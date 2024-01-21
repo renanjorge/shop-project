@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using shop.domain.Extensions;
 using shop.infra.data.Context;
-
-namespace shop.api.Extensions.Startup;
-
-public static class DatabaseExtension
+namespace shop.infra.crossCutting.Startup;
+public static class Database
 {
     public static IServiceCollection AddCustomizedDatabase(this IServiceCollection services, IConfiguration configuration)
     {

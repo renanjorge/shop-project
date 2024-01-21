@@ -1,7 +1,7 @@
 using Microsoft.OpenApi.Models;
-using shop.api.Extensions.Startup;
 using shop.infra.crossCutting.IoC;
 using shop.infra.crossCutting.Middleware.ExceptionHandlerMiddleware;
+using shop.infra.crossCutting.Startup;
 using System.Reflection;
 
 namespace shop.api;

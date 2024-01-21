@@ -11,7 +11,7 @@ using shop.infra.data.Context;
 namespace shop.infra.data.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20230923200656_InitialCreate")]
+    [Migration("20240121151337_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -19,7 +19,7 @@ namespace shop.infra.data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -31,9 +31,6 @@ namespace shop.infra.data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoriaId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -55,9 +52,13 @@ namespace shop.infra.data.Migrations
                         .HasColumnType("varchar(250)")
                         .HasColumnName("Nome");
 
+                    b.Property<int>("ProductCategoryId")
+                        .HasColumnType("int")
+                        .HasColumnName("CategoriaId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoriaId");
+                    b.HasIndex("ProductCategoryId");
 
                     b.ToTable("tblProduto", (string)null);
                 });
@@ -132,7 +133,7 @@ namespace shop.infra.data.Migrations
                 {
                     b.HasOne("shop.domain.Models.Entities.ProductCategory", "ProductCategory")
                         .WithMany()
-                        .HasForeignKey("CategoriaId")
+                        .HasForeignKey("ProductCategoryId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
