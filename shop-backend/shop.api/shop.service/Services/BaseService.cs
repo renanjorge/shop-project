@@ -1,10 +1,11 @@
-﻿using shop.domain.Extensions;
-using shop.domain.Interfaces.Repositories;
-using shop.domain.Interfaces.Services;
+﻿using shop.domain.Entities;
+using shop.domain.Extensions;
+using shop.domain.Interfaces;
+using shop.service.Interfaces;
 
 namespace shop.service.Services;
 
-public abstract class BaseService<TModel> : IService<TModel> where TModel : class
+public abstract class BaseService<TModel> : IService<TModel> where TModel : Entity
 {
     private readonly IRepository<TModel> _repository;
 

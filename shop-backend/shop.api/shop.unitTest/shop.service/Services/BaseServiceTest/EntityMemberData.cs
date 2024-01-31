@@ -1,5 +1,5 @@
 ﻿using AutoFixture;
-using shop.domain.Models.Entities;
+using shop.domain.Entities;
 
 namespace shop.unitTest.shop.service;
 

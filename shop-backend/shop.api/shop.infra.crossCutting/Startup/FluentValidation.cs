@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using shop.domain.Validators;
+using shop.service.Validators;
 
 namespace shop.infra.crossCutting.Startup;
 public static class FluentValidation

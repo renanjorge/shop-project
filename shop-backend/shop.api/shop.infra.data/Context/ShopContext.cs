@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using shop.domain.Models.Entities;
+using shop.domain.Entities;
 using shop.infra.data.Mapping;
 
 namespace shop.infra.data.Context;

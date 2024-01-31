@@ -1,7 +1,7 @@
 ﻿using LinqKit;
+using shop.domain.Entities;
 using shop.domain.Extensions;
-using shop.domain.Models.Entities;
-using shop.domain.Models.Parameters;
+using shop.domain.Parameters;
 using System.Linq.Expressions;
 
 namespace shop.infra.data.FilterDefinitions.LambdaFilter;

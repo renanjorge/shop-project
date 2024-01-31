@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using shop.domain.Interfaces.Repositories;
-using shop.domain.Models.Entities;
-using shop.domain.Models.Parameters;
+using shop.domain.Entities;
+using shop.domain.Interfaces;
+using shop.domain.Parameters;
 using shop.infra.data.Context;
 using shop.infra.data.FilterDefinitions.LambdaFilter;
 

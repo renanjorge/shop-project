@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using shop.domain.Extensions;
-using shop.domain.Interfaces.Services;
-using shop.domain.Models.DTOs;
-using shop.domain.Models.DTOs.ProductCategory;
-using shop.domain.Models.Parameters;
+using shop.domain.Parameters;
+using shop.service.DTOs;
+using shop.service.DTOs.ProductCategory;
+using shop.service.Interfaces;
 using System.Net.Mime;
 
 namespace shop.api.Controllers;

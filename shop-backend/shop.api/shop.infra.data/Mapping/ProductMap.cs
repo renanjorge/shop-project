@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using shop.domain.Models.Entities;
+using shop.domain.Entities;
 
 namespace shop.infra.data.Mapping;
 

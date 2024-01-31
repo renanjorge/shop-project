@@ -1,4 +1,4 @@
-﻿using shop.domain.Models.Parameters;
+﻿using shop.domain.Parameters;
 using shop.infra.data.FilterDefinitions.LambdaFilter;
 
 namespace shop.unitTest.shop.infra.data.FilterDefinitions;

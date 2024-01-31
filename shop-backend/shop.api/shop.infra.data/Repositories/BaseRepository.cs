@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using shop.domain.Interfaces.Repositories;
+using shop.domain.Entities;
+using shop.domain.Interfaces;
 using shop.infra.data.Context;
 
 namespace shop.infra.data.Repositories;
 
-public abstract class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
+public abstract class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
 {
     protected readonly ShopContext _context;
     protected readonly DbSet<TEntity> _dbSet;

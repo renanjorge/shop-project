@@ -1,9 +1,9 @@
-﻿using shop.domain.Interfaces.Repositories;
-using shop.domain.Interfaces.Services;
-using shop.domain.Models.DTOs;
-using shop.domain.Models.Entities;
-using shop.domain.Models.Parameters;
-using shop.domain.Models.DTOs.ProductCategory;
+﻿using shop.domain.Interfaces;
+using shop.domain.Entities;
+using shop.service.Interfaces;
+using shop.domain.Parameters;
+using shop.service.DTOs;
+using shop.service.DTOs.ProductCategory;
 
 namespace shop.service.Services;
 

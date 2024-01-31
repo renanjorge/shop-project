@@ -1,11 +1,11 @@
 ﻿using AutoFixture;
 using Moq;
-using shop.domain.Interfaces.Repositories;
-using shop.domain.Interfaces.Services;
-using shop.domain.Models.DTOs;
-using shop.domain.Models.DTOs.Product;
-using shop.domain.Models.Entities;
-using shop.domain.Models.Parameters;
+using shop.domain.Entities;
+using shop.domain.Interfaces;
+using shop.domain.Parameters;
+using shop.service.DTOs;
+using shop.service.DTOs.Product;
+using shop.service.Interfaces;
 using shop.service.Services;
 
 namespace shop.unitTest.shop.service.Service;

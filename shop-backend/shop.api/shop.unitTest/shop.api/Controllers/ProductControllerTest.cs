@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using shop.api.Controllers;
-using shop.domain.Interfaces.Services;
-using shop.domain.Models.DTOs;
-using shop.domain.Models.DTOs.Product;
-using shop.domain.Models.Entities;
-using shop.domain.Models.Parameters;
+using shop.domain.Entities;
+using shop.domain.Parameters;
+using shop.service.DTOs;
+using shop.service.DTOs.Product;
+using shop.service.Interfaces;
 
 namespace shop.unitTest.shop.api.Controllers;
 

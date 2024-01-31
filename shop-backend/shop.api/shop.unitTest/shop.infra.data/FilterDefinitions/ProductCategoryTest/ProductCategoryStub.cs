@@ -1,4 +1,4 @@
-﻿using shop.domain.Models.Entities;
+﻿using shop.domain.Entities;
 
 namespace shop.unitTest.shop.infra.data.FilterDefinitions;
 

@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using Moq;
-using shop.domain.Interfaces.Repositories;
+using shop.domain.Entities;
+using shop.domain.Interfaces;
 using shop.service.Services;
 
 namespace shop.unitTest.shop.service.Service;
@@ -10,7 +11,7 @@ public class BaseServiceTest
 {
     [Theory(DisplayName = "Update with invalid id and return null")]
     [MemberData(nameof(EntityMemberData.GetData), MemberType = typeof(EntityMemberData))]
-    public async Task Given_NonExistentId_When_UpdateIsCalled_Then_ReturnsNull<TModel>(TModel model) where TModel : class
+    public async Task Given_NonExistentId_When_UpdateIsCalled_Then_ReturnsNull<TModel>(TModel model) where TModel : Entity
     {
         var _repositoryMock = new Mock<IRepository<TModel>>();
         var _service = new Mock<BaseService<TModel>>(_repositoryMock.Object) { CallBase = true };
@@ -29,7 +30,7 @@ public class BaseServiceTest
 
     [Theory(DisplayName = "Update with valid id and return entity")]
     [MemberData(nameof(EntityMemberData.GetData), MemberType = typeof(EntityMemberData))]
-    public async Task Given_ExistentIdAndChangedEntity_When_UpdateIsCalled_Then_ReturnsEntity<TModel>(TModel model) where TModel : class
+    public async Task Given_ExistentIdAndChangedEntity_When_UpdateIsCalled_Then_ReturnsEntity<TModel>(TModel model) where TModel : Entity
     {
         var _repositoryMock = new Mock<IRepository<TModel>>();
         var _service = new Mock<BaseService<TModel>>(_repositoryMock.Object) { CallBase = true };
@@ -51,7 +52,7 @@ public class BaseServiceTest
 
     [Theory(DisplayName = "Delete with invalid id and return null")]
     [MemberData(nameof(EntityMemberData.GetData), MemberType = typeof(EntityMemberData))]
-    public async Task Given_NonExistentId_When_DeleteIsCalled_Then_ReturnsNull<TModel>(TModel model) where TModel : class
+    public async Task Given_NonExistentId_When_DeleteIsCalled_Then_ReturnsNull<TModel>(TModel model) where TModel : Entity
     {
         var _repositoryMock = new Mock<IRepository<TModel>>();
         var _service = new Mock<BaseService<TModel>>(_repositoryMock.Object) { CallBase = true };
@@ -70,7 +71,7 @@ public class BaseServiceTest
 
     [Theory(DisplayName = "Delete with valid id and return entity")]
     [MemberData(nameof(EntityMemberData.GetData), MemberType = typeof(EntityMemberData))]
-    public async Task Given_ExistentId_When_DeleteIsCalled_Then_ReturnsEntity<TModel>(TModel model) where TModel : class
+    public async Task Given_ExistentId_When_DeleteIsCalled_Then_ReturnsEntity<TModel>(TModel model) where TModel : Entity
     {
         var _repositoryMock = new Mock<IRepository<TModel>>();
         var _service = new Mock<BaseService<TModel>>(_repositoryMock.Object) { CallBase = true };
