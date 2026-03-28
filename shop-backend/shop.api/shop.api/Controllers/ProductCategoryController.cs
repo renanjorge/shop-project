@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using shop.domain.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
 using shop.domain.Extensions;
 using shop.domain.Parameters;
 using shop.service.DTOs;
@@ -18,13 +16,8 @@ namespace shop.api.Controllers;
 public class ProductCategoryController : ControllerBase
 {
     private readonly IProductCategoryService _service;
-    private readonly IMapper _mapper;
 
-    public ProductCategoryController(IProductCategoryService service, IMapper mapper)
-    {
-        _service = service;
-        _mapper = mapper;
-    }
+    public ProductCategoryController(IProductCategoryService service) => _service = service;
 
     /// <summary>
     /// Consultar categorias dos produtos
@@ -46,12 +39,12 @@ public class ProductCategoryController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(int id)
     {
-        var productCategory = await _service.GetById(id);
+        ProductCategoryResponse? productCategory = await _service.GetById(id);
 
         if (productCategory.IsNull())
             return NotFound();
 
-        return Ok(_mapper.Map<ProductCategoryResponse>(productCategory));
+        return Ok(productCategory);
     }
 
     /// <summary>
@@ -62,9 +55,9 @@ public class ProductCategoryController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post([FromBody] ProductCategoryRequestBody requestBody)
     {
-        var createdProductCategory = await _service.Add(_mapper.Map<ProductCategory>(requestBody));
+        ProductCategoryResponse createdProductCategory = await _service.Add(requestBody);
 
-        return Created(_mapper.Map<ProductCategoryResponse>(createdProductCategory));
+        return Created(createdProductCategory);
     }
 
     /// <summary>
@@ -76,7 +69,7 @@ public class ProductCategoryController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Put(int id, [FromBody] ProductCategoryRequestBody requestBody)
     {
-        var updatedProductCategory = await _service.Update(id, _mapper.Map<ProductCategory>(requestBody));
+        ProductCategoryResponse? updatedProductCategory = await _service.Update(id, requestBody);
 
         if (updatedProductCategory.IsNull())
             return NotFound();
@@ -92,7 +85,7 @@ public class ProductCategoryController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(int id)
     {
-        var deletedProductCategory = await _service.Delete(id);
+        ProductCategoryResponse? deletedProductCategory = await _service.Delete(id);
 
         if (deletedProductCategory.IsNull())
             return NotFound();

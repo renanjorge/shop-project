@@ -27,4 +27,32 @@ public class ProductService : BaseService<Product>, IProductService
 
         return new PagedList<ProductResponse>(productsResponse, parameters.PageNumber, parameters.PageSize, total);
     }
+
+    async Task<ProductResponse?> IProductService.GetById(int id)
+    {
+        Product? entity = await base.GetById(id);
+        return entity is not null ? _mapper.Map<ProductResponse>(entity) : null;
+    }
+
+    async Task<ProductResponse> IProductService.Add(ProductRequestBody requestBody)
+    {
+        Product newProduct = _mapper.Map<Product>(requestBody);
+        Product created = await base.Add(newProduct);
+
+        Product? createdWithCategory = await base.GetById(created.Id);
+        return _mapper.Map<ProductResponse>(createdWithCategory);
+    }
+
+    async Task<ProductResponse?> IProductService.Update(int id, ProductRequestBody requestBody)
+    {
+        Product newProduct = _mapper.Map<Product>(requestBody);
+        Product? updated = await base.Update(id, newProduct);
+        return updated is not null ? _mapper.Map<ProductResponse>(updated) : null;
+    }
+
+    async Task<ProductResponse?> IProductService.Delete(int id)
+    {
+        Product? deleted = await base.Delete(id);
+        return deleted is not null ? _mapper.Map<ProductResponse>(deleted) : null;
+    }
 }

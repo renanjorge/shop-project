@@ -1,15 +1,12 @@
-﻿using AutoFixture;
-using AutoMapper;
+using AutoFixture;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using shop.api.Controllers;
-using shop.domain.Entities;
 using shop.domain.Parameters;
 using shop.service.DTOs;
 using shop.service.DTOs.Product;
 using shop.service.Interfaces;
-using shop.service.Mappings;
 
 namespace shop.unitTest.shop.api.Controllers;
 
@@ -17,14 +14,12 @@ namespace shop.unitTest.shop.api.Controllers;
 public class ProductControllerTest
 {
     private Mock<IProductService> _serviceMock;
-    private IMapper _mapper;
     private ProductController _controller;
 
     public ProductControllerTest()
     {
         _serviceMock = new Mock<IProductService>();
-        _mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
-        _controller = new ProductController(_serviceMock.Object, _mapper);
+        _controller = new ProductController(_serviceMock.Object);
     }
 
     [Fact(DisplayName = "GET /api/products returns http status code 200")]
@@ -69,7 +64,7 @@ public class ProductControllerTest
     {
         // Arrange
         var getByIdResponse = new Fixture()
-            .Create<Product>();
+            .Create<ProductResponse>();
 
         _serviceMock
             .Setup(s => s.GetById(It.IsAny<int>()))
@@ -89,16 +84,12 @@ public class ProductControllerTest
     {
         // Arrange
         var productRequestBody = new ProductRequestBody();
-        var getByIdResponse = new Fixture()
-            .Create<Product>();
+        var addResponse = new Fixture()
+            .Create<ProductResponse>();
 
         _serviceMock
-           .Setup(s => s.Add(It.IsAny<Product>()))
-           .ReturnsAsync(getByIdResponse);
-
-        _serviceMock
-            .Setup(s => s.GetById(It.IsAny<int>()))
-            .ReturnsAsync(getByIdResponse);
+           .Setup(s => s.Add(It.IsAny<ProductRequestBody>()))
+           .ReturnsAsync(addResponse);
 
         // Act
         var createdResult = await _controller.Post(productRequestBody) as CreatedAtActionResult;
@@ -116,7 +107,7 @@ public class ProductControllerTest
         var productRequestBody = new ProductRequestBody();
 
         _serviceMock
-           .Setup(s => s.Update(It.IsAny<int>(), It.IsAny<Product>()))
+           .Setup(s => s.Update(It.IsAny<int>(), It.IsAny<ProductRequestBody>()))
            .ReturnsAsync(() => null);
 
         // Act
@@ -133,10 +124,10 @@ public class ProductControllerTest
         var productRequestBody = new ProductRequestBody();
 
         var updateResponse = new Fixture()
-           .Create<Product>();
+           .Create<ProductResponse>();
 
         _serviceMock
-           .Setup(s => s.Update(It.IsAny<int>(), It.IsAny<Product>()))
+           .Setup(s => s.Update(It.IsAny<int>(), It.IsAny<ProductRequestBody>()))
            .ReturnsAsync(updateResponse);
 
         // Act
@@ -166,7 +157,7 @@ public class ProductControllerTest
     {
         // Arrange
         var deleteResponse = new Fixture()
-           .Create<Product>();
+           .Create<ProductResponse>();
 
         _serviceMock
            .Setup(s => s.Delete(It.IsAny<int>()))

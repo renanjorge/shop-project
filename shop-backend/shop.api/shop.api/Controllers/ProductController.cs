@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using shop.domain.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
 using shop.domain.Extensions;
 using shop.domain.Parameters;
 using shop.service.DTOs;
@@ -18,13 +16,8 @@ namespace shop.api.Controllers;
 public class ProductController : ControllerBase
 {
     private readonly IProductService _service;
-    private readonly IMapper _mapper;
 
-    public ProductController(IProductService service, IMapper mapper)
-    {
-        _service = service;
-        _mapper = mapper;
-    }
+    public ProductController(IProductService service) => _service = service;
 
     /// <summary>
     /// Consultar produtos
@@ -46,12 +39,12 @@ public class ProductController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(int id)
     {
-        var product = await _service.GetById(id);
+        ProductResponse? product = await _service.GetById(id);
 
         if (product.IsNull())
             return NotFound();
 
-        return Ok(_mapper.Map<ProductResponse>(product));
+        return Ok(product);
     }
 
     /// <summary>
@@ -62,13 +55,9 @@ public class ProductController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post([FromBody] ProductRequestBody requestBody)
     {
-        var newProduct = _mapper.Map<Product>(requestBody);
+        ProductResponse createdProduct = await _service.Add(requestBody);
 
-        var createdProduct = await _service.Add(newProduct);
-
-        createdProduct = await _service.GetById(createdProduct.Id);
-
-        return Created(_mapper.Map<ProductResponse>(createdProduct));
+        return Created(createdProduct);
     }
 
     /// <summary>
@@ -80,7 +69,7 @@ public class ProductController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Put(int id, [FromBody] ProductRequestBody requestBody)
     {
-        var updatedProduct = await _service.Update(id, _mapper.Map<Product>(requestBody));
+        ProductResponse? updatedProduct = await _service.Update(id, requestBody);
 
         if (updatedProduct.IsNull())
             return NotFound();
@@ -96,7 +85,7 @@ public class ProductController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(int id)
     {
-        var deletedProduct = await _service.Delete(id);
+        ProductResponse? deletedProduct = await _service.Delete(id);
 
         if (deletedProduct.IsNull())
             return NotFound();
