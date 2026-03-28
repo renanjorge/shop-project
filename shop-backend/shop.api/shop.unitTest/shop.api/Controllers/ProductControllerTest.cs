@@ -1,4 +1,5 @@
 ﻿using AutoFixture;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -8,6 +9,7 @@ using shop.domain.Parameters;
 using shop.service.DTOs;
 using shop.service.DTOs.Product;
 using shop.service.Interfaces;
+using shop.service.Mappings;
 
 namespace shop.unitTest.shop.api.Controllers;
 
@@ -15,12 +17,14 @@ namespace shop.unitTest.shop.api.Controllers;
 public class ProductControllerTest
 {
     private Mock<IProductService> _serviceMock;
+    private IMapper _mapper;
     private ProductController _controller;
 
     public ProductControllerTest()
     {
         _serviceMock = new Mock<IProductService>();
-        _controller = new ProductController(_serviceMock.Object);
+        _mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
+        _controller = new ProductController(_serviceMock.Object, _mapper);
     }
 
     [Fact(DisplayName = "GET /api/products returns http status code 200")]
