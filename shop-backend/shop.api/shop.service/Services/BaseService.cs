@@ -1,4 +1,5 @@
-﻿using shop.domain.Entities;
+﻿using AutoMapper;
+using shop.domain.Entities;
 using shop.domain.Extensions;
 using shop.domain.Interfaces;
 using shop.service.Interfaces;
@@ -8,10 +9,12 @@ namespace shop.service.Services;
 public abstract class BaseService<TModel> : IService<TModel> where TModel : Entity
 {
     private readonly IRepository<TModel> _repository;
+    protected readonly IMapper _mapper;
 
-    protected BaseService(IRepository<TModel> repository)
+    protected BaseService(IRepository<TModel> repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
 
     public virtual async Task<TModel?> GetById(int id) => await _repository.Select(id);
@@ -24,7 +27,7 @@ public abstract class BaseService<TModel> : IService<TModel> where TModel : Enti
 
         if (oldModel.IsNotNull())
         {
-            oldModel.ReceiveDifferentProperties(newModel);
+            _mapper.Map(newModel, oldModel);
             return await _repository.Update(oldModel);
         }
 

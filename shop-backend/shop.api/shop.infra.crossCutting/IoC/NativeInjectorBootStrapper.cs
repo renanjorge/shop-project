@@ -2,6 +2,7 @@
 using shop.domain.Interfaces;
 using shop.infra.data.Repositories;
 using shop.service.Interfaces;
+using shop.service.Mappings;
 using shop.service.Services;
 
 namespace shop.infra.crossCutting.IoC;
@@ -10,6 +11,7 @@ public static class NativeInjectorBootStrapper
 {
     public static void RegisterServices(this IServiceCollection services)
     {
+        services.AddAutoMapper(typeof(MappingProfile).Assembly);
         Services(services);
         Repositories(services);
     }
