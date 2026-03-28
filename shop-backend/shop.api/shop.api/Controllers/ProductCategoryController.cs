@@ -39,7 +39,7 @@ public class ProductCategoryController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(int id)
     {
-        ProductCategoryResponse productCategory = await _service.GetById(id);
+        ProductCategoryResponse? productCategory = await _service.GetById(id);
 
         if (productCategory.IsNull())
             return NotFound();
@@ -69,7 +69,7 @@ public class ProductCategoryController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Put(int id, [FromBody] ProductCategoryRequestBody requestBody)
     {
-        ProductCategoryResponse updatedProductCategory = await _service.Update(id, requestBody);
+        ProductCategoryResponse? updatedProductCategory = await _service.Update(id, requestBody);
 
         if (updatedProductCategory.IsNull())
             return NotFound();
@@ -85,7 +85,7 @@ public class ProductCategoryController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(int id)
     {
-        ProductCategoryResponse deletedProductCategory = await _service.Delete(id);
+        ProductCategoryResponse? deletedProductCategory = await _service.Delete(id);
 
         if (deletedProductCategory.IsNull())
             return NotFound();

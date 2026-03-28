@@ -1,7 +1,9 @@
 ﻿using AutoFixture;
+using AutoMapper;
 using Moq;
 using shop.domain.Entities;
 using shop.domain.Interfaces;
+using shop.service.Mappings;
 using shop.service.Services;
 
 namespace shop.unitTest.shop.service.Service;
@@ -9,12 +11,14 @@ namespace shop.unitTest.shop.service.Service;
 [Trait("shop.service", "")]
 public class BaseServiceTest
 {
+    private readonly IMapper _mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
+
     [Theory(DisplayName = "Update with invalid id and return null")]
     [MemberData(nameof(EntityMemberData.GetData), MemberType = typeof(EntityMemberData))]
     public async Task Given_NonExistentId_When_UpdateIsCalled_Then_ReturnsNull<TModel>(TModel model) where TModel : Entity
     {
         var _repositoryMock = new Mock<IRepository<TModel>>();
-        var _service = new Mock<BaseService<TModel>>(_repositoryMock.Object) { CallBase = true };
+        var _service = new Mock<BaseService<TModel>>(_repositoryMock.Object, _mapper) { CallBase = true };
 
         _repositoryMock
             .Setup(r => r.Select(It.IsAny<int>()))
@@ -33,7 +37,7 @@ public class BaseServiceTest
     public async Task Given_ExistentIdAndChangedEntity_When_UpdateIsCalled_Then_ReturnsEntity<TModel>(TModel model) where TModel : Entity
     {
         var _repositoryMock = new Mock<IRepository<TModel>>();
-        var _service = new Mock<BaseService<TModel>>(_repositoryMock.Object) { CallBase = true };
+        var _service = new Mock<BaseService<TModel>>(_repositoryMock.Object, _mapper) { CallBase = true };
 
         var selectResponse = new Fixture()
             .Create<TModel>();
@@ -55,7 +59,7 @@ public class BaseServiceTest
     public async Task Given_NonExistentId_When_DeleteIsCalled_Then_ReturnsNull<TModel>(TModel model) where TModel : Entity
     {
         var _repositoryMock = new Mock<IRepository<TModel>>();
-        var _service = new Mock<BaseService<TModel>>(_repositoryMock.Object) { CallBase = true };
+        var _service = new Mock<BaseService<TModel>>(_repositoryMock.Object, _mapper) { CallBase = true };
 
         _repositoryMock
             .Setup(r => r.Select(It.IsAny<int>()))
@@ -74,7 +78,7 @@ public class BaseServiceTest
     public async Task Given_ExistentId_When_DeleteIsCalled_Then_ReturnsEntity<TModel>(TModel model) where TModel : Entity
     {
         var _repositoryMock = new Mock<IRepository<TModel>>();
-        var _service = new Mock<BaseService<TModel>>(_repositoryMock.Object) { CallBase = true };
+        var _service = new Mock<BaseService<TModel>>(_repositoryMock.Object, _mapper) { CallBase = true };
 
         var selectResponse = new Fixture()
           .Create<TModel>();

@@ -1,11 +1,14 @@
-﻿using shop.domain.Entities;
-using shop.domain.Parameters;
+﻿using shop.domain.Parameters;
 using shop.service.DTOs;
 using shop.service.DTOs.Product;
 
 namespace shop.service.Interfaces;
 
-public interface IProductService : IService<Product>
+public interface IProductService
 {
-    public Task<PagedList<ProductResponse>> GetAll(ProductParameters parameters);
+    Task<PagedList<ProductResponse>> GetAll(ProductParameters parameters);
+    Task<ProductResponse?> GetById(int id);
+    Task<ProductResponse> Add(ProductRequestBody requestBody);
+    Task<ProductResponse?> Update(int id, ProductRequestBody requestBody);
+    Task<ProductResponse?> Delete(int id);
 }

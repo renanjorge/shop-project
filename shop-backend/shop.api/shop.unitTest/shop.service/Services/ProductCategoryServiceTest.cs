@@ -1,4 +1,5 @@
-﻿using AutoFixture;
+using AutoFixture;
+using AutoMapper;
 using Moq;
 using shop.service.Services;
 using shop.domain.Interfaces;
@@ -7,6 +8,7 @@ using shop.service.Interfaces;
 using shop.domain.Parameters;
 using shop.service.DTOs;
 using shop.service.DTOs.ProductCategory;
+using shop.service.Mappings;
 
 namespace shop.unitTest.shop.service.Service;
 
@@ -14,12 +16,14 @@ namespace shop.unitTest.shop.service.Service;
 public class ProductCategoryServiceTest
 {
     private Mock<IProductCategoryRepository> _repositoryMock;
+    private IMapper _mapper;
     private IProductCategoryService _service;
 
     public ProductCategoryServiceTest()
     {
         _repositoryMock = new Mock<IProductCategoryRepository>();
-        _service = new ProductCategoryService(_repositoryMock.Object);
+        _mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
+        _service = new ProductCategoryService(_repositoryMock.Object, _mapper);
     }
 
     [Fact(DisplayName = "Successfully returning a paginated list of product categories")]
