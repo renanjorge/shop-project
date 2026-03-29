@@ -22,7 +22,7 @@ public class ProductCategoryServiceTest
     public ProductCategoryServiceTest()
     {
         _repositoryMock = new Mock<IProductCategoryRepository>();
-        _mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
+        _mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>(), new Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory()).CreateMapper();
         _service = new ProductCategoryService(_repositoryMock.Object, _mapper);
     }
 

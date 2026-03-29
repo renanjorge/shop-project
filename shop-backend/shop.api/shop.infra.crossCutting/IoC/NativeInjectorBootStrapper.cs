@@ -11,7 +11,7 @@ public static class NativeInjectorBootStrapper
 {
     public static void RegisterServices(this IServiceCollection services)
     {
-        services.AddAutoMapper(typeof(MappingProfile).Assembly);
+        services.AddAutoMapper(cfg => cfg.AddMaps(typeof(MappingProfile).Assembly));
         Services(services);
         Repositories(services);
     }

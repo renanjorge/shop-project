@@ -11,7 +11,7 @@ namespace shop.unitTest.shop.service.Service;
 [Trait("shop.service", "")]
 public class BaseServiceTest
 {
-    private readonly IMapper _mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
+    private readonly IMapper _mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>(), new Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory()).CreateMapper();
 
     [Theory(DisplayName = "Update with invalid id and return null")]
     [MemberData(nameof(EntityMemberData.GetData), MemberType = typeof(EntityMemberData))]

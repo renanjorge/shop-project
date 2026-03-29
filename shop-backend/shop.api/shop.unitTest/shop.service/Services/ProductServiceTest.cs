@@ -22,7 +22,7 @@ public class ProductServiceTest
     public ProductServiceTest()
     {
         _repositoryMock = new Mock<IProductRepository>();
-        _mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
+        _mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>(), new Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory()).CreateMapper();
         _service = new ProductService(_repositoryMock.Object, _mapper);
     }
 
