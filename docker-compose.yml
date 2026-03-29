@@ -20,7 +20,7 @@ services:
     container_name: shop.api
     image: renanjorge/shop.api:latest
     build:
-      context: /shop-backend/shop.api
+      context: ./shop-backend/shop.api
       dockerfile: Dockerfile
     environment:
         - DB_HOST=shop.db
